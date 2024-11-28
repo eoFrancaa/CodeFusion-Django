@@ -8,11 +8,12 @@ from drf_spectacular.views import (
 )
 from rest_framework.routers import DefaultRouter
 
-from core.views import UserViewSet
+from core.views import DisciplinaViewSet, UserViewSet
 
 router = DefaultRouter()
 
 router.register(r"usuarios", UserViewSet, basename="usuarios")
+router.register(r"disciplinas", DisciplinaViewSet, basename="disciplinas")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
