@@ -1,6 +1,3 @@
-from attrs import field
-from dill.tests.test_recursive import Model
-from pyexpat import model
 from rest_framework.serializers import ModelSerializer
 
 from core.models import Curso
