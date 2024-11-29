@@ -8,10 +8,10 @@ from core.models import Turma
 class TurmaSerializer(ModelSerializer):
     class Meta:
         model = Turma
-        fields = ["nome", "curso", "ano"]
+        fields = "__all__"
 
 
 class TurmaListSerializer(ModelSerializer):
     class Meta:
         model = Turma
-        field = ["nome", "curso", "ano"]
+        fields = ["nome", "curso", "ano"]

@@ -27,12 +27,12 @@ class AlunoSerializer(ModelSerializer):
 class AlunoInfoSerializer(ModelSerializer):
     class Meta:
         model = Aluno
-        field = "__all__"
+        fields = "__all__"
         depth = 1
 
 
 class AlunoListSerializer(ModelSerializer):
     class Meta:
         model = Aluno
-        field = ["matricula", "turma"]
+        fields = ["nome", "matricula", "turma"]
         capa = ImageSerializer(required=False)

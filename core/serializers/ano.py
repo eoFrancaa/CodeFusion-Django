@@ -6,4 +6,4 @@ from core.models import Ano
 class AnoSerializer(ModelSerializer):
     class Meta:
         model = Ano
-        field = "__all__"
+        fields = "__all__"

@@ -13,4 +13,4 @@ class CursoSerializer(ModelSerializer):
 class DisciplinaCurso(ModelSerializer):
     class Meta:
         model = Disciplina
-        fields = "nome"
+        fields = "__all__"

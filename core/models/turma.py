@@ -12,4 +12,4 @@ class Turma(models.Model):
     ano = models.ForeignKey(Ano, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.id} - {self.nome} - {self.curso.nome}"
+        return f"{self.id} - {self.nome} - {self.curso.nome} {self.ano_data}"
