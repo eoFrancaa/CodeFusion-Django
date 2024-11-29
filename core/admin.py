@@ -51,8 +51,16 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
+@admin.register(models.Aluno)
+class AlunoAdmin(admin.ModelAdmin):
+    list_display = ("id", "nome", "email", "turma", "matricula")
+    search_fields = ("id", "nome", "matricula", "turma__nome")
+    list_filter = ("turma", "nome")
+    ordering = ("id", "nome", "turma", "matricula")
+    list_per_page = 25
+
+
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Disciplina)
 admin.site.register(models.Curso)
 admin.site.register(models.Turma)
-admin.site.register(models.Aluno)
