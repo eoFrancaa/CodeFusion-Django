@@ -34,11 +34,11 @@ INSTALLED_APPS = [
     "cloudinary",
     "corsheaders",
     "django_extensions",
-    "django_filters",
     "drf_spectacular",
     "rest_framework",
     "uploader",
     "core",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
