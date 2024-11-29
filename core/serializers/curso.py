@@ -1,7 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
 from core.models import Curso
-from core.models.disciplina import Disciplina
 
 
 class CursoSerializer(ModelSerializer):
@@ -10,7 +9,7 @@ class CursoSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class DisciplinaCurso(ModelSerializer):
+class CursoListSerializer(ModelSerializer):
     class Meta:
-        model = Disciplina
-        fields = "__all__"
+        model = Curso
+        fields = ["id", "nome", "disciplina"]
