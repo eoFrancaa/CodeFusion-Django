@@ -81,6 +81,15 @@ class TurmaAdmin(admin.ModelAdmin):
 #     list_per_page = 10
 
 
+@admin.register(models.Nota)
+class NotaAdmin(admin.ModelAdmin):
+    list_display = ("valor", "disciplina", "trimestre")
+    search_fields = ("valor", "disciplina", "trimestre")
+    list_filter = ("valor", "trimestre")
+    ordering = ("valor", "disciplina", "trimestre")
+    list_per_page = 10
+
+
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Disciplina)
 admin.site.register(models.Curso)

@@ -1,7 +1,5 @@
 from django.db import models
 
-from black import mode
-
 from .ano import Ano
 from .curso import Curso
 

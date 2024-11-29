@@ -2,6 +2,7 @@ from .aluno import AlunoViewSet
 from .ano import AnoViewSet
 from .curso import CursoViewSet
 from .disciplina import DisciplinaViewSet
+from .nota import NotaViewSet
 from .ocorrencia import OcorrenciaViewSet
 from .professor import ProfessorViewSet
 from .trimestre import TrimestreViewSet

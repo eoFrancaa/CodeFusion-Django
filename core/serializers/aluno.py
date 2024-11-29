@@ -1,8 +1,8 @@
 from attrs import field
 from cffi import model
-from dill.tests.test_recursive import Model
-from jsonschema._keywords import required
+from dill import source
 from rest_framework import serializers
+from rest_framework.relations import StringRelatedField
 from rest_framework.serializers import ModelSerializer, SlugRelatedField
 
 from core.models import Aluno
@@ -37,8 +37,29 @@ class AlunoInfoSerializer(ModelSerializer):
         fields = ["nome", "email", "id"]
 
 
+class AlunoImageSerializer(ModelSerializer):
+    url = StringRelatedField()
+
+    class Meta:
+        model = Image
+        fields = ["url"]
+
+
 class AlunoListSerializer(ModelSerializer):
+    capa_attachment_key = SlugRelatedField(
+        source="capa",
+        queryset=Image.objects.all(),
+        slug_field="attachment_key",
+        required=False,
+        write_only=True,
+    )
+    capa_url = SlugRelatedField(
+        source="capa",
+        queryset=Image.objects.all(),
+        slug_field="url",
+    )
+
     class Meta:
         model = Aluno
-        fields = ["nome", "email", "id"]
-        capa = ImageSerializer(required=False)
+        fields = ["nome", "email", "id", "capa_url", "capa_attachment_key"]
+        capa = AlunoImageSerializer

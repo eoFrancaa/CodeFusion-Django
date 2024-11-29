@@ -2,6 +2,7 @@ from .aluno import AlunoSerializer
 from .ano import AnoSerializer
 from .curso import CursoSerializer
 from .disciplina import DisciplinaSerializer
+from .nota import NotaSerializer
 from .ocorrencia import OcorrenciaSerializer
 from .professor import ProfessorSerializer
 from .trimestre import TrimestreSerializer
