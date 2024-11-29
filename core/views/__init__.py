@@ -1,4 +1,5 @@
 from .aluno import AlunoViewSet
+from .ano import AnoViewSet
 from .curso import CursoViewSet
 from .disciplina import DisciplinaViewSet
 from .turma import TurmaViewSet

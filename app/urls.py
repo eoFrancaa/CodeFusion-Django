@@ -10,6 +10,7 @@ from rest_framework.routers import DefaultRouter
 
 from core.views import (
     AlunoViewSet,
+    AnoViewSet,
     CursoViewSet,
     DisciplinaViewSet,
     TurmaViewSet,
@@ -23,6 +24,7 @@ router.register(r"disciplinas", DisciplinaViewSet, basename="disciplinas")
 router.register(r"cursos", CursoViewSet, basename="cursos")
 router.register(r"turmas", TurmaViewSet, basename="turmas")
 router.register(r"alunos", AlunoViewSet, basename="alunos")
+router.register(r"anos", AnoViewSet, basename="anos")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
