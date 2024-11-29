@@ -7,6 +7,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from core import models
+from core.models.turma import Turma
 
 
 class UserAdmin(BaseUserAdmin):
@@ -60,8 +61,16 @@ class AlunoAdmin(admin.ModelAdmin):
     list_per_page = 25
 
 
+@admin.register(models.Turma)
+class TurmaAdmin(admin.ModelAdmin):
+    list_display = ("nome", "curso", "ano__data")
+    search_fields = ("nome", "curso__nome")
+    list_filter = ("ano", "curso")
+    ordering = ("nome", "curso", "ano__data")
+    list_per_page = 21
+
+
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Disciplina)
 admin.site.register(models.Curso)
-admin.site.register(models.Turma)
 admin.site.register(models.Ano)
