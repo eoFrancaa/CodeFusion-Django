@@ -54,23 +54,33 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(models.Aluno)
 class AlunoAdmin(admin.ModelAdmin):
-    list_display = ("id", "nome", "email", "turma", "matricula")
-    search_fields = ("id", "nome", "matricula", "turma__nome")
+    list_display = ("nome", "email", "turma__nome", "matricula")
+    search_fields = ("nome", "matricula", "turma__nome")
     list_filter = ("turma", "nome")
-    ordering = ("id", "nome", "turma", "matricula")
+    ordering = ("nome", "turma__nome", "matricula")
     list_per_page = 25
 
 
 @admin.register(models.Turma)
 class TurmaAdmin(admin.ModelAdmin):
-    list_display = ("nome", "curso", "ano__data")
+    list_display = ("nome", "curso__nome", "ano__data")
     search_fields = ("nome", "curso__nome")
     list_filter = ("ano", "curso")
-    ordering = ("nome", "curso", "ano__data")
+    ordering = ("nome", "curso__nome", "ano__data")
     list_per_page = 21
+
+
+# @admin.register(models.Ocorrencia)
+# class OcorrenciaAdmin(admin.ModelAdmin):
+#     list_display = ("aluno")
+#     search_fields = ()
+#     list_filter = ()
+#     ordering = ()
+#     list_per_page = 10
 
 
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Disciplina)
 admin.site.register(models.Curso)
 admin.site.register(models.Ano)
+admin.site.register(models.Ocorrencia)

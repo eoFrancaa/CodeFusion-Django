@@ -15,6 +15,7 @@ from core.views import (
     AnoViewSet,
     CursoViewSet,
     DisciplinaViewSet,
+    OcorrenciaViewSet,
     TurmaViewSet,
     UserViewSet,
 )
@@ -28,6 +29,7 @@ router.register(r"cursos", CursoViewSet, basename="cursos")
 router.register(r"turmas", TurmaViewSet, basename="turmas")
 router.register(r"alunos", AlunoViewSet, basename="alunos")
 router.register(r"anos", AnoViewSet, basename="anos")
+router.register(r"ocorrências", OcorrenciaViewSet, basename="ocorrências")
 router.registry.extend(uploader_router.registry)
 
 urlpatterns = [
