@@ -8,7 +8,7 @@ from core.models import Turma
 class TurmaSerializer(ModelSerializer):
     class Meta:
         model = Turma
-        fields = "__all__"
+        fields = ["nome", "curso", "ano"]
 
 
 class TurmaListSerializer(ModelSerializer):
