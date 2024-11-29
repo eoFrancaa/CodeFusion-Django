@@ -31,6 +31,19 @@ class AlunoSerializer(ModelSerializer):
 
 class AlunoInfoSerializer(ModelSerializer):
     nome = serializers.CharField()
+    capa_attachment_key = SlugRelatedField(
+        source="capa",
+        queryset=Image.objects.all(),
+        slug_field="attachment_key",
+        required=False,
+        write_only=True,
+    )
+    capa_url = SlugRelatedField(
+        source="capa",
+        queryset=Image.objects.all(),
+        slug_field="url",
+    )
+
 
     class Meta:
         model = Aluno

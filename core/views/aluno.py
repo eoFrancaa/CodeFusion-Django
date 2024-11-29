@@ -9,8 +9,6 @@ from core.serializers.aluno import AlunoInfoSerializer, AlunoListSerializer
 class AlunoViewSet(ModelViewSet):
     queryset = Aluno.objects.all()
     serializer_class = AlunoSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["turma__id"]
 
     def get_serializer_class(self):
         if self.action == "list":
