@@ -6,6 +6,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
+from black import mode
+
 from core import models
 from core.models.turma import Turma
 
@@ -85,3 +87,4 @@ admin.site.register(models.Curso)
 admin.site.register(models.Ano)
 admin.site.register(models.Ocorrencia)
 admin.site.register(models.Professor)
+admin.site.register(models.Trimestre)

@@ -4,5 +4,6 @@ from .curso import CursoSerializer
 from .disciplina import DisciplinaSerializer
 from .ocorrencia import OcorrenciaSerializer
 from .professor import ProfessorSerializer
+from .trimestre import TrimestreSerializer
 from .turma import TurmaSerializer
 from .user import UserSerializer
