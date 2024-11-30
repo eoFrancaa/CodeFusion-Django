@@ -44,7 +44,6 @@ class AlunoInfoSerializer(ModelSerializer):
         slug_field="url",
     )
 
-
     class Meta:
         model = Aluno
         fields = ["nome", "email", "id", "turma", "capa_url", "capa_attachment_key"]
