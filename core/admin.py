@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 from core import models
 from core.models.turma import Turma
+from core.views import turma
 
 
 class UserAdmin(BaseUserAdmin):
@@ -51,12 +52,11 @@ class UserAdmin(BaseUserAdmin):
         ),
     )
 
-
 @admin.register(models.Aluno)
 class AlunoAdmin(admin.ModelAdmin):
     list_display = ("nome", "email", "turma__nome", "matricula")
     search_fields = ("nome", "matricula", "turma__nome")
-    list_filter = ("turma", "nome")
+    list_filter = ("nome", "turma__nome")
     ordering = ("nome", "turma__nome", "matricula")
     list_per_page = 25
 
@@ -65,18 +65,9 @@ class AlunoAdmin(admin.ModelAdmin):
 class TurmaAdmin(admin.ModelAdmin):
     list_display = ("nome", "curso__nome")
     search_fields = ("nome", "curso__nome")
-    list_filter = ("nome", "curso")
+    list_filter = ("nome", "curso__nome")
     ordering = ("nome", "curso__nome")
     list_per_page = 21
-
-
-# @admin.register(models.Ocorrencia)
-# class OcorrenciaAdmin(admin.ModelAdmin):
-#     list_display = ("aluno")
-#     search_fields = ()
-#     list_filter = ()
-#     ordering = ()
-#     list_per_page = 10
 
 
 @admin.register(models.Nota)

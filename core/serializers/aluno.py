@@ -67,6 +67,7 @@ class AlunoImageSerializer(ModelSerializer):
         fields = ["url"]
 
 
+
 class AlunoListSerializer(ModelSerializer):
     capa_attachment_key = SlugRelatedField(
         source="capa",
