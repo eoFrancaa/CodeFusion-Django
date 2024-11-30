@@ -14,17 +14,17 @@ class FirebaseJWTAuthentication(BaseAuthentication):
 
         try:
             decoded_token = auth.verify_id_token(token)
-            uid = decoded_token.get('uid')
+            uid = decoded_token.get('name')
             return (self.get_or_create_user(uid, decoded_token), None)
         except Exception as e:
             raise AuthenticationFailed(f"Token inválido: {str(e)}")
 
     def get_or_create_user(self, uid, decoded_token):
-        from django.contrib.auth.models import User
+        from core.models import User
 
         email = decoded_token.get('email')
         user, created = User.objects.get_or_create(
-            username=uid,
+            name=uid,
             defaults={'email': email},
         )
         return user

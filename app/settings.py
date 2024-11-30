@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import firebase_admin
 from firebase_admin import credentials
 
-FIREBASE_CREDENTIALS_FILE = "path/to/firebase/credentials.json"
+FIREBASE_CREDENTIALS_FILE = "credentials.json"
 
 cred = credentials.Certificate(FIREBASE_CREDENTIALS_FILE)
 firebase_admin.initialize_app(cred)
@@ -19,6 +19,7 @@ MODE = os.getenv("MODE")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+AUTH_USER_MODEL = 'core.User'
 
 SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure")
 DEBUG = os.getenv("DEBUG", "False")
@@ -149,8 +150,6 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "API para o projeto <descreva aqui seu projeto>.",
     "VERSION": "1.0.0",
 }
-
-AUTH_USER_MODEL = "core.User"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
