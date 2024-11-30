@@ -12,4 +12,4 @@ class CursoSerializer(ModelSerializer):
 class CursoListSerializer(ModelSerializer):
     class Meta:
         model = Curso
-        fields = ["id", "nome", "disciplina"]
+        fields = ["id", "nome"]

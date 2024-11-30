@@ -10,4 +10,4 @@ class NotaViewSet(ModelViewSet):
     serializer_class = NotaSerializer
     pagination_class = None
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["aluno__turma__id", "aluno__turma__curso__disciplina__id"]
+    filterset_fields = ["disciplina__nome", "aluno__nome", "trimestre"]
