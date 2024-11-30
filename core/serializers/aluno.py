@@ -47,7 +47,7 @@ class AlunoInfoSerializer(ModelSerializer):
 
     class Meta:
         model = Aluno
-        fields = ["nome", "email", "id", "capa_url", "capa_attachment_key"]
+        fields = ["nome", "email", "id", "turma", "capa_url", "capa_attachment_key"]
 
 
 class AlunoImageSerializer(ModelSerializer):

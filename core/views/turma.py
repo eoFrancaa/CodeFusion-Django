@@ -9,6 +9,7 @@ from core.serializers.turma import TurmaListSerializer
 class TurmaViewSet(ModelViewSet):
     queryset = Turma.objects.all()
     serializer_class = TurmaSerializer
+    pagination_class = None
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["curso__disciplina__id"]
 
