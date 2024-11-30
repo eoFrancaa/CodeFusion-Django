@@ -4,8 +4,14 @@ from pathlib import Path
 
 import dj_database_url
 from dotenv import load_dotenv
+import firebase_admin
+from firebase_admin import credentials
 
-# Carrega as variáveis de ambiente do arquivo .env
+FIREBASE_CREDENTIALS_FILE = "path/to/firebase/credentials.json"
+
+cred = credentials.Certificate(FIREBASE_CREDENTIALS_FILE)
+firebase_admin.initialize_app(cred)
+
 load_dotenv()
 
 # Define o modo de execução da aplicação
@@ -51,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "core.authentication.FirebaseAuthMiddleware",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -146,7 +153,9 @@ SPECTACULAR_SETTINGS = {
 AUTH_USER_MODEL = "core.User"
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("core.authentication.TokenAuthentication",),  # Autenticação no passage.id
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+    'core.authentication.FirebaseJWTAuthentication',
+    ],  
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",
     ),  # Permissões através dos grupos do Django

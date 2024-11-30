@@ -1,63 +1,52 @@
-from django.conf import settings
-from django.core.exceptions import ObjectDoesNotExist
-
-from drf_spectacular.extensions import OpenApiAuthenticationExtension
-from drf_spectacular.plumbing import build_bearer_security_scheme_object
-from passageidentity import Passage, PassageError
-
-# from passageidentity.openapi_client.models import UserInfo
-from rest_framework import authentication
+from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
+from firebase_admin import auth
+from django.http import JsonResponse
 
-from core.models import User
+class FirebaseJWTAuthentication(BaseAuthentication):
+    def authenticate(self, request):
+        token = request.META.get('HTTP_AUTHORIZATION')
 
-PASSAGE_APP_ID = settings.PASSAGE_APP_ID
-PASSAGE_API_KEY = settings.PASSAGE_API_KEY
-PASSAGE_AUTH_STRATEGY = settings.PASSAGE_AUTH_STRATEGY
-psg = Passage(PASSAGE_APP_ID, PASSAGE_API_KEY, auth_strategy=PASSAGE_AUTH_STRATEGY)
-
-
-class TokenAuthenticationScheme(OpenApiAuthenticationExtension):
-    target_class = "core.authentication.TokenAuthentication"
-    name = "tokenAuth"
-    match_subclasses = True
-    priority = -1
-
-    def get_security_definition(self, auto_schema):
-        return build_bearer_security_scheme_object(
-            header_name="Authorization",
-            token_prefix="Bearer",
-        )
-
-
-class TokenAuthentication(authentication.BaseAuthentication):
-    def authenticate(self, request) -> tuple[User, None]:
-        if not request.headers.get("Authorization"):
+        if not token:
             return None
 
-        token = request.headers.get("Authorization").split()[1]
-        psg_user_id: str = self._get_user_id(token)
-        user: User = self._get_or_create_user(psg_user_id)
+        token = token.split(' ')[1]
 
-        return (user, None)
-
-    def _get_or_create_user(self, psg_user_id) -> User:
         try:
-            user: User = User.objects.get(passage_id=psg_user_id)
-        except ObjectDoesNotExist:
-            psg_user = psg.getUser(psg_user_id)
-            user: User = User.objects.create_user(
-                passage_id=psg_user.id,
-                email=psg_user.email,
-            )
+            decoded_token = auth.verify_id_token(token)
+            uid = decoded_token.get('uid')
+            return (self.get_or_create_user(uid, decoded_token), None)
+        except Exception as e:
+            raise AuthenticationFailed(f"Token inválido: {str(e)}")
 
+    def get_or_create_user(self, uid, decoded_token):
+        from django.contrib.auth.models import User
+
+        email = decoded_token.get('email')
+        user, created = User.objects.get_or_create(
+            username=uid,
+            defaults={'email': email},
+        )
         return user
 
-    def _get_user_id(self, token) -> str:
-        try:
-            psg_user_id: str = psg.validateJwt(token)
-        except PassageError as e:
-            # print(e)
-            raise AuthenticationFailed(e.message) from e
 
-        return psg_user_id
+class FirebaseAuthMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        # Extrai o token do cabeçalho Authorization
+        auth_header = request.META.get('HTTP_AUTHORIZATION', None)
+        if auth_header:
+            parts = auth_header.split()
+
+            if len(parts) == 2 and parts[0].lower() == 'bearer':
+                token = parts[1]
+                try:
+                    # Verifica o token no Firebase
+                    decoded_token = auth.verify_id_token(token)
+                    request.user = decoded_token  # Armazena os dados do usuário no request
+                except Exception as e:
+                    return JsonResponse({"error": "Invalid token"}, status=401)
+        
+        return self.get_response(request)
