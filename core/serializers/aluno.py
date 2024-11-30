@@ -1,6 +1,3 @@
-from attrs import field
-from cffi import model
-from dill import source
 from rest_framework import serializers
 from rest_framework.relations import StringRelatedField
 from rest_framework.serializers import ModelSerializer, SlugRelatedField

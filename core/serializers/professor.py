@@ -1,7 +1,3 @@
-from attrs import field
-from cffi import model
-from dill.tests.test_recursive import Model
-from jsonschema._keywords import required
 from rest_framework.serializers import ModelSerializer, SlugRelatedField
 
 from core.models import Professor

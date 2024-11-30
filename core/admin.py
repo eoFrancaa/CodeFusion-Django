@@ -6,8 +6,6 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from black import mode
-
 from core import models
 from core.models.turma import Turma
 
@@ -65,10 +63,10 @@ class AlunoAdmin(admin.ModelAdmin):
 
 @admin.register(models.Turma)
 class TurmaAdmin(admin.ModelAdmin):
-    list_display = ("nome", "curso__nome", "ano__data")
+    list_display = ("nome", "curso__nome")
     search_fields = ("nome", "curso__nome")
-    list_filter = ("ano", "curso")
-    ordering = ("nome", "curso__nome", "ano__data")
+    list_filter = ("nome", "curso")
+    ordering = ("nome", "curso__nome")
     list_per_page = 21
 
 
@@ -83,17 +81,15 @@ class TurmaAdmin(admin.ModelAdmin):
 
 @admin.register(models.Nota)
 class NotaAdmin(admin.ModelAdmin):
-    list_display = ("valor", "disciplina", "trimestre")
-    search_fields = ("valor", "disciplina", "trimestre")
-    list_filter = ("valor", "trimestre")
-    ordering = ("valor", "disciplina", "trimestre")
+    list_display = ("valor", "disciplina")
+    search_fields = ("valor", "disciplina")
+    list_filter = ("valor", "disciplina")
+    ordering = ("valor", "disciplina")
     list_per_page = 10
 
 
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Disciplina)
 admin.site.register(models.Curso)
-admin.site.register(models.Ano)
 admin.site.register(models.Ocorrencia)
 admin.site.register(models.Professor)
-admin.site.register(models.Trimestre)

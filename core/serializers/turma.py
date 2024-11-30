@@ -11,8 +11,6 @@ class TurmaSerializer(ModelSerializer):
 
 
 class TurmaListSerializer(ModelSerializer):
-    ano = serializers.IntegerField(source="ano.data")
-
     class Meta:
         model = Turma
-        fields = ["id", "nome", "curso", "ano"]
+        fields = ["id", "nome", "curso"]

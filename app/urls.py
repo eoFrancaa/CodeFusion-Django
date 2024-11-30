@@ -12,13 +12,11 @@ from rest_framework.routers import DefaultRouter
 
 from core.views import (
     AlunoViewSet,
-    AnoViewSet,
     CursoViewSet,
     DisciplinaViewSet,
     NotaViewSet,
     OcorrenciaViewSet,
     ProfessorViewSet,
-    TrimestreViewSet,
     TurmaViewSet,
     UserViewSet,
 )
@@ -31,10 +29,8 @@ router.register(r"disciplinas", DisciplinaViewSet, basename="disciplinas")
 router.register(r"cursos", CursoViewSet, basename="cursos")
 router.register(r"turmas", TurmaViewSet, basename="turmas")
 router.register(r"alunos", AlunoViewSet, basename="alunos")
-router.register(r"anos", AnoViewSet, basename="anos")
 router.register(r"ocorrências", OcorrenciaViewSet, basename="ocorrências")
 router.register(r"professores", ProfessorViewSet, basename="professores")
-router.register(r"trimestres", TrimestreViewSet, basename="trimestres")
 router.register(r"notas", NotaViewSet, basename="notas")
 router.registry.extend(uploader_router.registry)
 
